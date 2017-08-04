@@ -12,7 +12,9 @@ const config = {
 
 export default class SettingsStore extends MobxFirebaseStore {
 	constructor(props) {
-		firebase.initializeApp(config)
+    if (!firebase.apps.length) {
+		  firebase.initializeApp(config)
+    }
 		super(firebase.database().ref())
 	}
 }

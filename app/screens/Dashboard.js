@@ -6,7 +6,7 @@ import {
   Spinner
 } from 'native-base'
 import {Image, StyleSheet, Dimensions} from 'react-native'
-import Login from './../components/Login'
+import Dashboard from './../components/Dashboard'
 import SettingsStore from './../stores/settingsStore'
 import AuthStore from './../stores/authStore'
 import {observer} from 'mobx-react/native'
@@ -15,14 +15,14 @@ const settings = new SettingsStore()
 const authStore = new AuthStore()
 
 @observer
-export default class LoginScreen extends Component {
+export default class DashboardScreen extends Component {
 	static navigationOptions = {
-    title: 'Dinder',
+    title: 'Dashboard',
   };
 	constructor(props) {
 		super(props)
 		this.state = {
-			LoginBG: require('./../../images/LoginBG.jpg'),
+			DashboardBG: require('./../../images/DashboardBG.jpg'),
       store: {
         settings: settings,
         auth: authStore
@@ -33,15 +33,9 @@ export default class LoginScreen extends Component {
 	render() {
     let {store} = this.state;
 		return (
-			<Container style={style.container}>
-				<Content scrollEnabled={false}>
-					<Image style={style.loginBackground} source={this.state.LoginBG}>
-						<View style={style.loginForeground}>
-							<Login store={store} {...this.props}/>
-						</View>
-					</Image>
-				</Content>
-			</Container>
+			<Image style={style.dashBackground} source={this.state.DashboardBG}>
+					<Dashboard store={store} {...this.props}/>
+			</Image>
 		)
 	}
 }
@@ -53,18 +47,9 @@ const style = StyleSheet.create({
     left: 0,
     right: 0
   },
-  loginBackground: {
+  dashBackground: {
     flex:1,
     width: null,
     height: null
-  },
-  loginForeground: {
-    flex:1,
-    marginTop: Dimensions.get('window').height/1.75,
-    paddingTop: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 90,
-    bottom: 0
   }
 })

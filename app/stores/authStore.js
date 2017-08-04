@@ -17,4 +17,8 @@ export default class AuthStore {
 		}
 		return firebase.auth().signInWithEmailAndPassword(email, password)
 	}
+
+	signOut() {
+		return firebase.auth().signOut()
+	}
 }
