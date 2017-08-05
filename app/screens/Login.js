@@ -17,7 +17,7 @@ const authStore = new AuthStore()
 @observer
 export default class LoginScreen extends Component {
 	static navigationOptions = {
-    title: 'Dinder',
+    title: 'Dinder'
   };
 	constructor(props) {
 		super(props)

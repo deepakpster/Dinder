@@ -3,6 +3,8 @@ import {
   Content, 
   Container,
   View,
+  Text,
+  Button,
   Spinner
 } from 'native-base'
 import {Image, StyleSheet, Dimensions} from 'react-native'
@@ -18,6 +20,8 @@ const authStore = new AuthStore()
 export default class DashboardScreen extends Component {
 	static navigationOptions = {
     title: 'Dashboard',
+    headerLeft: null,
+    headerRight: null
   };
 	constructor(props) {
 		super(props)

@@ -21,4 +21,8 @@ export default class AuthStore {
 	signOut() {
 		return firebase.auth().signOut()
 	}
+
+	getUser() {
+		return this.authUser
+	}
 }
