@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Content, 
+  Content,
+  Footer, 
   Button,
   InputGroup,
   Input,
@@ -14,8 +15,16 @@ const authStore = new AuthStore()
 
 export default class Account extends Component {
 	render() {
+		 const {state} = this.props.navigation;
 		return (
-			<Button rounded onPress={this.signOut.bind(this)}><Text>Sign Out</Text></Button>
+			<Content>
+				<Text>{state.params.auth.authUser.email}</Text>
+				<Footer>
+					<Button rounded block onPress={this.signOut.bind(this)}>
+					<Text>Sign Out</Text>
+					</Button>
+				</Footer>
+			</Content>
 		)
 	}
 

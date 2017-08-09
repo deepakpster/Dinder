@@ -33,8 +33,9 @@ export default class Login extends Component {
     this.setState({loading:true}, () =>{
       auth.signIn({email, password})
         .then((user) => {
+          console.log('User: ', user);
           console.log('Successful Login');
-          navigate('Dashboard')
+          navigate('Dashboard', {auth})
         })
         .catch((error) => {
           var errorCode = error.code;

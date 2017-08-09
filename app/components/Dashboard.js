@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Badge } from 'native-base';
 import AccountContent from './Account'
 import AboutContent from './About'
+import AlbumsContent from './Albums'
+import StoriesContent from './Stories'
 
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props)
     const { navigate } = this.props.navigation;
 		const btnCfg = [{
-			name: "apps",
-			text: "Apps",
-			screen: <AboutContent {...this.props}/>,
+			name: "albums",
+			text: "Albums",
+			screen: <AlbumsContent {...this.props}/>,
 			active: true
 		},{
 			name: "camera",
@@ -18,9 +20,9 @@ export default class Dashboard extends Component {
 			screen: <AccountContent {...this.props}/>,
 			active:false
 		},{
-			name: "navigate",
-			text: "Navigate",
-			screen: <AboutContent {...this.props}/>,
+			name: "book",
+			text: "Stories",
+			screen: <StoriesContent {...this.props}/>,
 			active: false
 		},{
 			name: "person",
