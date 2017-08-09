@@ -35,7 +35,11 @@ export default class Login extends Component {
         .then((user) => {
           console.log('User: ', user);
           console.log('Successful Login');
-          navigate('Dashboard', {auth})
+          if(user.emailVerified) {
+            navigate('Dashboard', {auth})
+          } else {
+            alert('Please acknowledge the verification email sent to your email address.')
+          }
         })
         .catch((error) => {
           var errorCode = error.code;
@@ -49,8 +53,14 @@ export default class Login extends Component {
           console.log(error);
         })
     })
-
   }
+
+  signUp() {
+    const {auth} = this.props.store
+    const { navigate } = this.props.navigation;
+    navigate('SignUp', {auth})
+  }
+
   render() {
     const {auth} = this.props.store;
     const {loading} = this.state;
@@ -59,7 +69,7 @@ export default class Login extends Component {
         <Icon style={{color:"#fff"}} name="mail"/>
         <Input style={{color:"#fff"}}
           placeholderTextColor="#fff"
-          placeholder="Please Enter Email"
+          placeholder="Email"
           onChangeText={(email) => {this.updateEmail(email)}}
         />
       </InputGroup>
@@ -67,14 +77,18 @@ export default class Login extends Component {
         <Icon style={{color:"#fff"}} name="unlock"/>
         <Input style={{color:"#fff"}}
           placeholderTextColor="#fff"
-          placeholder="Please Enter Password"
+          placeholder="Password"
           secureTextEntry={true}
           onChangeText={(pass) => {this.updatePassword(pass)}}
         />
       </InputGroup>
-      <Button style={{marginBottom:10}} rounded block
+      <Button style={{marginBottom:10}} block
         onPress={this.signIn.bind(this)}
       ><Text>Login</Text></Button>
+      <Button block transparent
+        onPress={this.signUp.bind(this)}>
+        <Text>Register</Text>
+      </Button>
     </View>
   }
 }

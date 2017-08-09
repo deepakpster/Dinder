@@ -39,7 +39,7 @@ export default class Dashboard extends Component {
 	render(){
 		return (
 			<Container>
-        <Content>
+        <Content style={{flex:1}}>
         	{this.state.screen}
         </Content>
         <Footer>

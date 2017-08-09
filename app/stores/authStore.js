@@ -2,27 +2,37 @@ import { observable, action } from 'mobx'
 import firebase from 'firebase'
 
 export default class AuthStore {
-	@observable authUser = null
+    @observable authUser = null
 
-	constructor() {
-		firebase.auth().onAuthStateChanged((user) => {
-			this.authUser = user;
-		})
-	}
+    constructor() {
+        firebase.auth().onAuthStateChanged((user) => {
+            this.authUser = user;
+        })
+    }
 
-	@action
-	signIn({email, password}) {
-		if(this.authUser) {
-			return Promise.resolve(this.authUser)
-		}
-		return firebase.auth().signInWithEmailAndPassword(email, password)
-	}
+    @action
+    signIn({ email, password }) {
+        if (this.authUser) {
+            return Promise.resolve(this.authUser)
+        }
+        return firebase.auth().signInWithEmailAndPassword(email, password)
+    }
 
-	signOut() {
-		return firebase.auth().signOut()
-	}
+    @action
+    signUp({ email, password }) {
+        return firebase.auth().createUserWithEmailAndPassword(email, password)
+    }
 
-	getUser() {
-		return this.authUser
-	}
+    @action
+    signOut() {
+        return firebase.auth().signOut()
+    }
+
+    getUser() {
+        return this.authUser
+    }
+
+    uploadProfilePicture() {
+        console.log("uploading profile picture");
+    }
 }
