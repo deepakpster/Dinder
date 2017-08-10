@@ -3,8 +3,8 @@ import firebase from 'firebase'
 
 export default class AuthStore {
     @observable authUser = null
-
     constructor() {
+    		this.firebase = firebase
         firebase.auth().onAuthStateChanged((user) => {
             this.authUser = user;
         })

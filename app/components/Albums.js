@@ -31,13 +31,24 @@ export default class Albums extends React.Component {
       index = 0
     }
     this.setState({ index })
-    const imgUrl = this.state.photos[index].node.image.uri;
+    const imageData = this.state.photos[index].node.image
+    const imgUrl = imageData.uri
   	this.setState({ selectedPhoto: imgUrl })
-    // RNFetchBlob.fs.readFile(imgUrl, 'base64')
-    // .then((data) => {
-    // 	this.setState({ selectedPhoto: `data:image/jpg;base64,${data}` })
-    // });
+  }
 
+  uploadPhoto() {
+  	const {index} = this.state
+  	const {auth} =this.props.store
+    const {firebase} = auth
+    const imageData = this.state.photos[index].node.image
+  	const storageRef = firebase.storage().ref(auth.getUser().uid+ '/storyPics/' + imageData.filename)
+  	RNFetchBlob.fs.readFile(imgUrl, 'base64')
+    .then((data) => {
+    	const message = `data:image/jpg;base64,${data}`
+	  	return storageRef.putString(message, 'data_url').then(function(snapshot) {
+			  console.log('Uploaded a data_url string!');
+			});
+    });
   }
 
   getPhotos = () => {
@@ -45,7 +56,10 @@ export default class Albums extends React.Component {
       first: 20,
       assetType: 'All'
     })
-    .then(r => this.setState({ photos: r.edges, selectedPhoto: r.edges[0].node.image.uri }))
+    .then(r => {
+    	console.log('test');
+    	this.setState({ photos: r.edges, selectedPhoto: r.edges[0].node.image.uri })
+    })
   }
 
   toggleModal = () => {

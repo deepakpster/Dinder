@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import AppContainer from './app/AppContainer'
 
-export default class dinder extends Component {
+export default class Dinder extends Component {
   render() {
     return (
       <AppContainer/>
@@ -18,4 +18,4 @@ export default class dinder extends Component {
   }
 }
 
-AppRegistry.registerComponent('dinder', () => dinder);
+AppRegistry.registerComponent('Dinder', () => Dinder);
