@@ -18,11 +18,11 @@ const authStore = new AuthStore()
 
 @observer
 export default class DashboardScreen extends Component {
-	static navigationOptions = {
-    title: 'Dashboard',
+	static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.state.params.title,
     headerLeft: null,
-    headerRight: null
-  };
+    headerRight: null,
+  })
 	constructor(props) {
 		super(props)
 		this.state = {

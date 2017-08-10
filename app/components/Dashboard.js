@@ -4,11 +4,12 @@ import AccountContent from './Account'
 import AboutContent from './About'
 import AlbumsContent from './Albums'
 import StoriesContent from './Stories'
+const DashboardScreen = require('./../screens/Dashboard')
 
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props)
-    const { navigate } = this.props.navigation;
+    const { navigate, setParams } = this.props.navigation;
 		const btnCfg = [{
 			name: "albums",
 			text: "Albums",
@@ -35,6 +36,7 @@ export default class Dashboard extends Component {
 			btnConfig: btnCfg,
 			screen: btnCfg[0].screen
 		}
+		setParams({title: btnCfg[0].text})
 	}
 	render(){
 		return (
@@ -53,7 +55,7 @@ export default class Dashboard extends Component {
 
 	goToPage(btn){
 		let {previous, btnConfig} = this.state
-    const { navigate } = this.props.navigation;
+    const { navigate, setParams } = this.props.navigation;
 
 		btnConfig = btnConfig.map((b) => {
 			if(b.active) b.active = false
@@ -64,6 +66,7 @@ export default class Dashboard extends Component {
 		this.setState({
 			screen: btn.screen
 		})
+		setParams({title: btn.text})
 	}
 
 	getButtonComponent(){
