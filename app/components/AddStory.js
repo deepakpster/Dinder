@@ -31,6 +31,9 @@ export default class AddStory extends Component {
     console.log(props);
     this.state = {
       size: { width, height },
+      title:'',
+      tagline:'',
+      description:'',
       photos:[],
       selected:[],
       modalVisible: false,
@@ -65,6 +68,15 @@ export default class AddStory extends Component {
 
   selectionCancelled(){
   	this.setModalVisible(false)
+  }
+  updateDescription(description){
+  	this.setState({description})
+  }
+  updateTagline(tagline){
+  	this.setState({tagline})
+  }
+  updateTitle(title){
+  	this.setState({title})
   }
   render() {
   	const {hasPhotos, size, photos, tmp_photos} = this.state;
@@ -128,16 +140,23 @@ export default class AddStory extends Component {
             <Row style={{ backgroundColor: '#E8E8E8',height: (2*height/3), width:width }}>
             	<Content>
 	            <Form style={{flex:1}}>
-	            	<Input placeholder="Title" />
-	            	<Input placeholder="Tagline" />
+	            	<Input
+	            		placeholder="Title" 
+        					onChangeText={(title) => {this.updateTitle(title)}}
+	            	/>
+	            	<Input placeholder="Tagline" 
+          				onChangeText={(tagline) => {this.updateTagline(tagline)}}
+	            	/>
 		            <TextInput 
-		            style={{height:(2*height/3)}}
-	               placeholder = "Write a story ..."
-	               autoFocus = {true}
-	               multiline = {true}
-	               maxLength = {1024}
-	               placeholderTextColor = "#C8C8C8"
-	               autoCapitalize = "none"/>
+		            	style={{height:(2*height/3)}}
+		              placeholder = "Write a story ..."
+		              autoFocus = {true}
+		              multiline = {true}
+		              maxLength = {1024}
+		              placeholderTextColor = "#C8C8C8"
+		              autoCapitalize = "none"
+	          			onChangeText={(description) => {this.updateDescription(description)}}
+                />
 	            </Form>
             	</Content>
             </Row>

@@ -52,9 +52,11 @@ export default class Dashboard extends Component {
 		console.log("Add Story");
     const { navigate } = this.props.navigation;
     navigate('AddStory', {
-    	photos:[]
+    	headerRight: null,
+    	props: this.props
     })
 	}
+
 	render(){
 		return (
 			<Container>
