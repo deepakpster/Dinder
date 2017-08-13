@@ -21,7 +21,7 @@ export default class DashboardScreen extends Component {
 	static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.state.params.title,
     headerLeft: null,
-    headerRight: null,
+    headerRight: navigation.state.params.headerRight,
   })
 	constructor(props) {
 		super(props)

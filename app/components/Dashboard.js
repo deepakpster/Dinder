@@ -9,22 +9,26 @@ const DashboardScreen = require('./../screens/Dashboard')
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props)
-    const { navigate, setParams } = this.props.navigation;
 		const btnCfg = [{
-			name: "albums",
-			text: "Albums",
-			screen: <AlbumsContent {...this.props}/>,
-			active: true
-		},{
-			name: "camera",
-			text: "Camera",
-			screen: <AccountContent {...this.props}/>,
-			active:false
-		},{
+		// 	name: "albums",
+		// 	text: "Albums",
+		// 	screen: <AlbumsContent {...this.props}/>,
+		//  hidden: true,
+		// 	active: true
+		// },{
+		// 	name: "camera",
+		// 	text: "Camera",
+		//  hidden: true,
+		// 	screen: <AccountContent {...this.props}/>,
+		// 	active:false
+		// },{
 			name: "book",
 			text: "Stories",
+			headerRight: <Button transparent bordered onPress={this.addStory.bind(this)}>
+				<Icon name='add' />
+			</Button>,
 			screen: <StoriesContent {...this.props}/>,
-			active: false
+			active: true
 		},{
 			name: "person",
 			text: "Account",
@@ -36,7 +40,20 @@ export default class Dashboard extends Component {
 			btnConfig: btnCfg,
 			screen: btnCfg[0].screen
 		}
-		setParams({title: btnCfg[0].text})
+	}
+	componentDidMount(){
+    const { setParams } = this.props.navigation;
+		setParams({
+			title: this.state.previous.text,
+			headerRight: this.state.previous.headerRight
+		})
+	}
+	addStory() {
+		console.log("Add Story");
+    const { navigate } = this.props.navigation;
+    navigate('AddStory', {
+    	photos:[]
+    })
 	}
 	render(){
 		return (
@@ -55,7 +72,7 @@ export default class Dashboard extends Component {
 
 	goToPage(btn){
 		let {previous, btnConfig} = this.state
-    const { navigate, setParams } = this.props.navigation;
+    const { setParams } = this.props.navigation;
 
 		btnConfig = btnConfig.map((b) => {
 			if(b.active) b.active = false
@@ -66,7 +83,10 @@ export default class Dashboard extends Component {
 		this.setState({
 			screen: btn.screen
 		})
-		setParams({title: btn.text})
+		setParams({
+			title: btn.text,
+			headerRight: btn.headerRight
+		})
 	}
 
 	getButtonComponent(){

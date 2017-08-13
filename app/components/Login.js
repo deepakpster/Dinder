@@ -36,7 +36,7 @@ export default class Login extends Component {
           console.log('User: ', user);
           console.log('Successful Login');
           if(user.emailVerified) {
-            navigate('Dashboard', {auth, title:""})
+            navigate('Dashboard', {auth, title:"", headerRight: null})
           } else {
             alert('Please acknowledge the verification email sent to your email address.')
           }
