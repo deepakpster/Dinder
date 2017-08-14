@@ -74,7 +74,8 @@ export default class AddStoryScreen extends Component {
 	  	title: state.title,
 	  	photos: JSON.stringify(filenames),
 	  	tagline: state.tagline,
-	  	description: state.description
+	  	description: state.description,
+	  	createdOn: new Date().toISOString()
 	  };
 
 	  firebase.database().ref().update(updates)
