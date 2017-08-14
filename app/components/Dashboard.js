@@ -36,17 +36,14 @@ export default class Dashboard extends Component {
 			active: false
 		}];
 		this.state = {
-			previous: btnCfg[0],
+			previous: null,
 			btnConfig: btnCfg,
-			screen: btnCfg[0].screen
+			screen: null
 		}
 	}
 	componentDidMount(){
-    const { setParams } = this.props.navigation;
-		setParams({
-			title: this.state.previous.text,
-			headerRight: this.state.previous.headerRight
-		})
+		let {btnConfig} = this.state
+    this.goToPage(btnConfig[0])
 	}
 	addStory() {
 		console.log("Add Story");

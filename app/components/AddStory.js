@@ -28,7 +28,6 @@ const {width, height } = Dimensions.get('window');
 export default class AddStory extends Component {
 	constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       size: { width, height },
       title:'',
@@ -46,7 +45,6 @@ export default class AddStory extends Component {
   }
   showAlbum(){
   	const {photos} = this.state
-  	console.log("Show Album");
   	this._selPhotos = _.clone(this.state.photos);
   	this.setState({selected : _.clone(this.state.photos)})
   	this.setModalVisible(true);
@@ -85,12 +83,10 @@ export default class AddStory extends Component {
     	<Container>
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: '#fff',height: hasPhotos ? height/3 : (height/6) }}>
+            <Row style={{ flex:1, backgroundColor: '#fff',height: height/3 }}>
 							<Modal
-			          animationType={"slide"}
 			          transparent={false}
 			          visible={this.state.modalVisible}
-			          onRequestClose={() => {alert("Modal has been closed.")}}
 			          >
 			          <Header>
 			          	<Left>
@@ -109,14 +105,15 @@ export default class AddStory extends Component {
 			          </Header>
 								<CameraRollPicker style={{flex:1}} selected={this.state.selected} callback={this.setPhotos.bind(this)} />
 		          </Modal>
-	            {!hasPhotos ? 
-			            <View style={{ flex: 1, display: hasPhotos?'none':null }}>
+	            {hasPhotos == false ? 
+			            <View style={{ flex: 1, flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center', display: hasPhotos?'none':null }}>
 			            	<Text>Select Images</Text>
 			            	<Button transparent onPress={this.showAlbum.bind(this)}>
 											<Icon name='images' />
 			            		<Text>Upload Images</Text>
 										</Button>
-
 			            </View>
 	            	:
 		            	<View style={{ flex: 1, display: hasPhotos? null :'none' }} onLayout={this._onLayoutDidChange}>
@@ -150,7 +147,7 @@ export default class AddStory extends Component {
 		            <TextInput 
 		            	style={{height:(2*height/3)}}
 		              placeholder = "Write a story ..."
-		              autoFocus = {true}
+		              autoFocus = {false}
 		              multiline = {true}
 		              maxLength = {1024}
 		              placeholderTextColor = "#C8C8C8"

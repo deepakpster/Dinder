@@ -19,7 +19,6 @@ export default class AddStoryScreen extends Component {
     const { setParams } = this.props.navigation;
 		const {store} = this.props.navigation.state.params.props
 		this.setState({store})
-		console.log(store)
 		setParams({
 			headerRight: <Button transparent bordered onPress={this.createStory.bind(this)}>
 				<Icon name='create' />
@@ -43,15 +42,14 @@ export default class AddStoryScreen extends Component {
 	    .then((data) => {
 	    	const message = `data:image/jpg;base64,${data}`
 		  	return storageRef.putString(message, 'data_url').then(function(snapshot) {
-				  console.log('Uploaded a data_url string!', snapshot);
 				});
 	    });
     })
   }
 
 	createStory(){
-		console.log("Creating Story");
 		const {state} = this.addScreenRef
+    const { navigate } = this.props.navigation;
 		const {auth} = this.state.store
     const {firebase} = auth
     const database = firebase.database()
@@ -75,7 +73,10 @@ export default class AddStoryScreen extends Component {
 	  	description: state.description
 	  };
 
-	  firebase.database().ref().update(updates);
+	  firebase.database().ref().update(updates)
+	  	.then(()=>{
+	  		navigate("Dashboard", {auth, title:"", headerRight: null})
+	  	});
 
 
 	}

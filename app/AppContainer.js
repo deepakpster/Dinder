@@ -15,10 +15,9 @@ const AppContainer = StackNavigator({
   AddStory: { screen: AddStoryScreen },
   SignUp: { screen: SignUpScreen }
 }, {
-	initialRouteName: 'Home',
-	authStore: authStore
+	initialRouteName: 'Home'//,
 	// navigationOptions: {
-	// 	header: null
+	// 	authStore: authStore
 	// }
 });
 

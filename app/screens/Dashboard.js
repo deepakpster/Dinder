@@ -9,12 +9,12 @@ import {
 } from 'native-base'
 import {Image, StyleSheet, Dimensions} from 'react-native'
 import Dashboard from './../components/Dashboard'
-import SettingsStore from './../stores/settingsStore'
-import AuthStore from './../stores/authStore'
+// import SettingsStore from './../stores/settingsStore'
+// import AuthStore from './../stores/authStore'
 import {observer} from 'mobx-react/native'
 
-const settings = new SettingsStore()
-const authStore = new AuthStore()
+// const settings = new SettingsStore()
+// const authStore = new AuthStore()
 
 @observer
 export default class DashboardScreen extends Component {
@@ -25,21 +25,28 @@ export default class DashboardScreen extends Component {
   })
 	constructor(props) {
 		super(props)
+  }
+
+  componentWillMount(){
+    const {navigation} = this.props
+    const {auth, settings} = navigation.state.params
 		this.state = {
 			DashboardBG: require('./../../images/DashboardBG.jpg'),
       store: {
         settings: settings,
-        auth: authStore
+        auth: auth
       }
     }
-	}
+  }
 
 	render() {
-    let {store} = this.state;
+    const {store} = this.state;
+    const user = store.auth.getUser()
+    console.log("Dashboard Store", store);
 		return (
-			<Image style={style.dashBackground} source={this.state.DashboardBG}>
-					<Dashboard store={store} {...this.props}/>
-			</Image>
+      <Image style={style.dashBackground} source={this.state.DashboardBG}>
+          <Dashboard store={store} {...this.props}/>
+      </Image>
 		)
 	}
 }

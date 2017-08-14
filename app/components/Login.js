@@ -27,6 +27,7 @@ export default class Login extends Component {
   }
   signIn(){
     const {auth} = this.props.store
+    const {settings} = this.props.store
     const {email, password} = this.state
     const { navigate } = this.props.navigation;
 
@@ -35,8 +36,8 @@ export default class Login extends Component {
         .then((user) => {
           console.log('User: ', user);
           console.log('Successful Login');
-          if(user.emailVerified) {
-            navigate('Dashboard', {auth, title:"", headerRight: null})
+          if(user.emailVerified && user.uid) {
+            navigate('Dashboard', {auth,  settings, user, title:"", headerRight: null})
           } else {
             alert('Please acknowledge the verification email sent to your email address.')
           }
