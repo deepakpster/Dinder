@@ -48,12 +48,16 @@ export default class AddStoryScreen extends Component {
   }
 
 	createStory(){
-		const {state} = this.addScreenRef
+		const {state, props} = this.addScreenRef
+		const {store, navigation} = props
+    const propstate = navigation.state.params.props.navigation.state.params;
+    console.log("Propstate", propstate)
+    const {auth, settings, user} = propstate
     const { navigate } = this.props.navigation;
-		const {auth} = this.state.store
+		// const {auth} = this.state.store
     const {firebase} = auth
     const database = firebase.database()
-    const uid = auth.getUser().uid
+    const uid = user.uid
 
 		if(state.hasPhotos){
 			this.uploadPhotos(state.photos)
@@ -74,9 +78,9 @@ export default class AddStoryScreen extends Component {
 	  };
 
 	  firebase.database().ref().update(updates)
-	  	.then(()=>{
-	  		navigate("Dashboard", {auth, title:"", headerRight: null})
-	  	});
+  	.then(()=>{
+  		navigate("Dashboard", {auth, settings, user, title:"", headerRight: null})
+  	});
 
 
 	}
